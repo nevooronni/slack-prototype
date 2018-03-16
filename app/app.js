@@ -23,12 +23,30 @@ angular
       .state('login', {
         url: '/login',
         controller: 'AuthCtrl as authCtrl',
-        templateUrl: 'auth/login.html'
+        templateUrl: 'auth/login.html',
+        resolve: {
+          requiredNoAuth: function($state, Auth) {
+            return Auth.$requireSignIn().then(function(auth) {
+              $state.go('home');
+            }, function(error) {
+              return;
+            });
+          }
+        }
       })
       .state('register', {
         url: '/register',
         controller: 'AuthCtrl as authCtrl',
-        templateUrl: 'auth/register.html'
+        templateUrl: 'auth/register.html',
+        resolve: {
+          requiredNoAuth: function($state, Auth) {
+            return Auth.$requireSignIn().then(function(auth) {
+              $state.go('home');
+            }, function(error) {
+              return;
+            });
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/');

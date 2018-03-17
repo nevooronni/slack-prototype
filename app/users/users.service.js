@@ -17,9 +17,9 @@ angular.module('angularfireSlackApp')
 				return users.$getRecord(uid).displayName;
 			},
 			//return the url to user's gravatar image when provided with a uid
-			getGravatar: function() {
+			getGravatar: function(uid) {
 				return '//www.gravatar.com/avatar' + users.$getRecord(uid).emailHash;
-			}
+			},
 		};
 
 		return Users;

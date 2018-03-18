@@ -9,17 +9,25 @@
       <!--loop-->
       <div class="channel" ng-repeat="channel in channelsCtrl.channels">
         <!--ui-sref directive provided by the ui-router-->
-      <a ui-sref="channels.messages({channelId: channel.$id})" ui-sref-active="selected"># {{ channel.name }}</a>
+        <a ui-sref="channels.messages({channelId: channel.$id})" ui-sref-active="selected"># {{ channel.name }}</a>
       </div>
 
       <!--link to channel create state-->
       <div class="channel create">
         <a ui-sref="channels.create">+ create channel</a>
       </div>
+
+      <div class="list-head">Direct Messages</div>
+      <div class="channel" ng-repeat="user in channelsCtrl.users">
+        <a ng-if="user.$id !== channelsCtrl.profile.$id" ui-sref="channels.direct({uid: user.$id})" ui-sref-active="selected">
+          {{ user.displayName }}
+         </a>
+      </div>
+
     </div>
 
     <div class="my-info">
-      <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar(channelsCtrl.profile.$id) }}" />
+      <img class="user-pic img-responsive" ng-src="{{ channelsCtrl.getGravatar(message.uid) }}" />
       <div class="user-info">
         <div class="user-name">
           {{ channelsCtrl.profile.displayName }}

@@ -10,6 +10,9 @@ angular.module('angularfireSlackApp')
 		channelsCtrl.getDisplayName = Users.getDisplayName;
 		channelsCtrl.getGravatar = Users.getGravatar;
 
+		//set users on channelCtrl 
+		channelsCtrl.users = Users.all;
+
 		//logout function for logout and return to home state
 		channelsCtrl.logout = function() {
 			Auth.$signOut().then(function() {

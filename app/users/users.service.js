@@ -9,6 +9,10 @@ angular.module('angularfireSlackApp')
 		//provides methods to manipulate data on firebase
 		var users = $firebaseArray(usersRef);
 
+		//reference to special .info/connected node on firebase
+		var connectedRef = firebase.database().ref('.info/connected');
+
+		
 		var Users = {
 			getProfile: function(uid) {
 				return $firebaseObject(usersRef.child(uid));
@@ -21,6 +25,21 @@ angular.module('angularfireSlackApp')
 				var emailHash = users.$getRecord(uid) ? users.$getRecord(uid).emailHash : ''
 				return '//www.gravatar.com/avatar' + emailHash;
 			}, 
+			//function for our users service
+			setOnline: function (uid) {
+				var connected = $firebaseObject(connectedRef);
+				var online = $firebaseArray(usersRef.child(uid+'/online'));
+
+				//watched for changes in the .info/connected node and will add any open connection to a firebasearray keyed under online within the user's profile
+				//allows us to track multiple connections
+				connected.$watch(function () {
+					if(connected.$value === true) {
+						online.$add(true).then(function(connectedRef) {
+							connectedRef.onDisconnect().remove();
+						});
+					}
+				});
+			},
 			all: users
 		};
 

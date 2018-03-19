@@ -1,4 +1,17 @@
 {
-  "firebase": "slack",
-  "public": "dist"
+  "firebase use --add": "slack",
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
 }

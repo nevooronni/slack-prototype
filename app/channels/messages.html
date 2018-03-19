@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" style="border-bottom-width: 0.2px; border-bottom-style: solid; border-bottom-color: #eee;">
   <h1>{{ messagesCtrl.channelName }}</h1>
 </div>
 
@@ -13,7 +13,9 @@
       {{ message.body }}
     </div>
   </div>
+  <hr>
 </div>
+<br>
 
 <form class="message-form" ng-submit="messagesCtrl.sendMessage()">
 
